@@ -28,7 +28,6 @@ public class AccountController {
         if (result.hasErrors()) {
             return "account/signup";
         }
-        System.out.println("==================" + form + "======================");
         memberService.join(form);
 
         return "redirect:/";
