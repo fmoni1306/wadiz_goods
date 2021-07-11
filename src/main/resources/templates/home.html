@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header">
-    <meta charset="UTF-8">
-</head>
-<body>
-<div th:replace="fragments/navbar :: navbar"/>
-<div class="container">
-</div>
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layouts/layout}">
+
+<th:div layout:fragment="content">
+    <div class="container">
+        무야호
+    </div>
+</th:div>
+
 </html>

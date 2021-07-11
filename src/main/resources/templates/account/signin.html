@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layouts/layout}">
+<head>
+    <link href="/css/signin.css" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+</head>
+
+<th:block layout:fragment="content">
+    <main class="form-signin">
+    <div class="container">
+        <body class="text-center">
+        <form method="post" th:action="@{/account/signin}" th:object="${form}">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="form-floating">
+                <input type="text" class="form-control" th:name="username" th:id="username" placeholder="UserName">
+                <label th:for="username">UserName</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" th:name="password" th:id="password" placeholder="Password">
+                <label th:for="password">Password</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+        </form>
+        </body>
+    </div>
+    </main>
+</th:block>
+</html>

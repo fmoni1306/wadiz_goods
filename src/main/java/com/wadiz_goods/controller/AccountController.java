@@ -32,4 +32,10 @@ public class AccountController {
 
         return "redirect:/";
     }
+
+    @GetMapping("account/signin")
+    public String signIn(Model model) {
+        model.addAttribute("form", new MemberForm());
+        return "account/signin";
+    }
 }

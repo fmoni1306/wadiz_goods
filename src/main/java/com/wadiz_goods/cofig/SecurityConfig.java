@@ -39,10 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/account/signin")// 커스텀 login 페이지를 사용
                 .defaultSuccessUrl("/") // 로그인 성공 시 이동할 페이지
                 .permitAll()
-                .usernameParameter("memberName")
+                .usernameParameter("username")
                 .and()
                 .logout()// 로그아웃 설정
-                .logoutRequestMatcher(new AntPathRequestMatcher("/account/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/account/signout"))
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true) // 세션 초기화
                 .and()
