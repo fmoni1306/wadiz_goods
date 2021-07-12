@@ -1,10 +1,13 @@
 package com.wadiz_goods.domain.member;
 
+import com.wadiz_goods.domain.project.Project;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -34,4 +37,7 @@ public class Member {
 
     @OneToOne(mappedBy = "member")
     private Provider provider;
+
+    @OneToMany(mappedBy = "provider")
+    private List<Project> projects = new ArrayList<Project>();
 }

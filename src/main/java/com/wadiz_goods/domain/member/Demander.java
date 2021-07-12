@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -24,6 +25,6 @@ public class Demander {
     private Member member;
 
     @OneToMany(mappedBy = "demander")
-    private List<Keyword> keyword;
+    private List<Keyword> keywords = new ArrayList<Keyword>();
 
 }

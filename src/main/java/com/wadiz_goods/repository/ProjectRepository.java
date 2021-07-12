@@ -1,6 +1,6 @@
 package com.wadiz_goods.repository;
 
-import com.wadiz_goods.domain.member.Member;
+import com.wadiz_goods.domain.project.Project;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -8,15 +8,11 @@ import javax.persistence.EntityManager;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepository {
+public class ProjectRepository {
 
     private final EntityManager em;
 
-    public void save(Member member) {
-        em.persist(member);
-    }
-
-    public Member find(Long id) {
-        return em.find(Member.class, id);
+    public void save(Project project) {
+        em.persist(project);
     }
 }
