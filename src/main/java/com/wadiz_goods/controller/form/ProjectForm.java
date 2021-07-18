@@ -1,10 +1,12 @@
 package com.wadiz_goods.controller.form;
 
+import com.wadiz_goods.domain.project.Tag;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter @Setter
 public class ProjectForm {
@@ -16,6 +18,8 @@ public class ProjectForm {
     private Long price;
 
     private Long purposePrice;
+
+//    private List<Tag> tagsList;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate periodStart;

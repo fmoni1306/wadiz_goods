@@ -3,14 +3,20 @@ package com.wadiz_goods.service;
 import com.wadiz_goods.controller.form.ProjectForm;
 import com.wadiz_goods.domain.member.Member;
 import com.wadiz_goods.domain.project.Project;
+import com.wadiz_goods.domain.project.Tag;
+import com.wadiz_goods.repository.MemberJpaRepository;
 import com.wadiz_goods.repository.MemberRepository;
 import com.wadiz_goods.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,17 +26,23 @@ public class ProjectService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long create(ProjectForm form) {
-        Project project = new Project();
-        System.out.println("form = " + form);
-        Member member = memberRepository.find(1L);
-        project.setTitle(form.getTitle());
-        project.setContent(form.getContent());
-        project.setPrice(form.getPrice());
-        project.setPurposePrice(form.getPurposePrice());
-        project.setCreatedDate(LocalDateTime.now());
-        project.setPeriodStart(form.getPeriodStart());
-        project.setPeriodEnd(form.getPeriodEnd());
+    public Long create(ProjectForm form, User user, String[] tags) {
+        Member member = memberRepository.findByMemberName(user.getUsername());
+        List<Tag> tagList = new ArrayList<Tag>();
+        for (String a : tags) {
+            Tag tag = Tag.createTag(a);
+            tagList.add(tag);
+        }
+        Project project = Project.createProject(
+                form.getTitle(),
+                member,
+                form.getContent(),
+                form.getPrice(),
+                form.getPurposePrice(),
+                form.getPeriodStart(),
+                form.getPeriodEnd(),
+                tagList
+        );
 
         project.setProvider(member);
 

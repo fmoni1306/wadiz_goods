@@ -30,9 +30,24 @@
                 <label th:for="periodEnd">End</label>
                 <input type="date" th:field="*{periodEnd}">
             </div>
+            <div class="form-group">
+                <label th:for="tag">Tag</label>
+                <input type="text" name="tag" id="tag">
+                <button type="button" class="btn btn-primary" id="add_tag">추가</button>
+                <div th:id="tag_list" th:name="tag_list"></div>
+            </div>
 
             <button type="submit">제출</button>
         </div>
     </form>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript">
+        $("#add_tag").on('click',function (){
+           $('#tag_list').append(`<input type="text" name="tagsList" value="${$('#tag').val()}">${$('#tag').val()}</input>`);
+            $('#tag').val('');
+        });
+    </script>
 </th:block>
 
