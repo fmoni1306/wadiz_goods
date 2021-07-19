@@ -45,7 +45,7 @@
 <th:block layout:fragment="script">
     <script type="text/javascript">
         $("#add_tag").on('click',function (){
-           $('#tag_list').append(`<input type="text" name="tagsList" value="${$('#tag').val()}">${$('#tag').val()}</input>`);
+           $('#tag_list').append(`<input type="text" name="tagsList" value="${$('#tag').val()}"/>`);
             $('#tag').val('');
         });
     </script>

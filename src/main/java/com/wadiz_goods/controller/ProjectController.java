@@ -2,6 +2,7 @@ package com.wadiz_goods.controller;
 
 import com.wadiz_goods.controller.form.ProjectForm;
 import com.wadiz_goods.domain.member.Member;
+import com.wadiz_goods.domain.project.Project;
 import com.wadiz_goods.domain.project.Tag;
 import com.wadiz_goods.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -30,16 +31,21 @@ public class ProjectController {
     }
 
     @PostMapping("project/create")
-    public String create(@RequestParam(value = "tagsList", required=true) String[] tags, @Valid ProjectForm form, Authentication authentication) {
+    public String create(@RequestParam(value = "tagsList", required = true) String[] tags, @Valid ProjectForm form, Authentication authentication) {
 
-//        if (result.hasErrors()) {
-//            return "project/create";
-//        }
 
         User user = (User) authentication.getPrincipal();
 
-        projectService.create(form,user, tags);
+        projectService.create(form, user, tags);
 
         return "redirect:/";
+    }
+
+    @GetMapping("project/find")
+    public String projectFind(Model model) {
+        List<Project> projects = projectService.findProjects();
+
+        model.addAttribute("projects", projects);
+        return "project/projectList";
     }
 }

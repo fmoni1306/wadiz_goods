@@ -57,9 +57,7 @@ public class Project {
     }
 
     // 생성 메서드
-
-
-    public static Project createProject(String title, Member provider, String content, Long price, Long purposePrice, LocalDate periodStart, LocalDate periodEnd, List<Tag> tagList) {
+    public static Project createProject(String title, Member provider, String content, Long price, Long purposePrice, LocalDate periodStart, LocalDate periodEnd) {
         Project project = new Project();
         project.setProvider(provider);
         project.setTitle(title);
@@ -70,9 +68,7 @@ public class Project {
         project.setPeriodStart(periodStart);
         project.setPeriodEnd(periodEnd);
 
-        for (Tag tag : tagList) {
-            project.addTag(tag);
-        }
+
 
         return project;
 

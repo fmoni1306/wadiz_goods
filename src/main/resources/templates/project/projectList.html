@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layouts/layout}">
+
+<th:block layout:fragment="content">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>제목</th>
+            <th>시작날짜</th>
+            <th>종료날짜</th>
+            <th>가격</th>
+            <th>목표가격</th>
+            <th>태그</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.id}"></td>
+            <td th:text="${project.title}"></td>
+            <td th:text="${project.periodStart}"></td>
+            <td th:text="${project.periodEnd}"></td>
+            <td th:text="${project.price}"></td>
+            <td th:text="${project.purposePrice}"></td>
+            <td>
+                <th:block th:each="tag : ${project.tags}">
+                    <span th:text="${tag.name}"></span>
+                </th:block>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</th:block>

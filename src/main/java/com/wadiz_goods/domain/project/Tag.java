@@ -17,6 +17,7 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
 
+
     private String name;
 
     @ManyToOne(fetch = LAZY)
@@ -24,9 +25,10 @@ public class Tag {
     private Project project;
 
     // 생성 메서드
-    public static Tag createTag(String name) {
+    public static Tag createTag(String name, Project project) {
         Tag tag = new Tag();
         tag.setName(name);
+        tag.setProject(project);
         return tag;
     }
 }
