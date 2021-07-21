@@ -1,10 +1,7 @@
 package com.wadiz_goods.domain.project;
 
 import com.wadiz_goods.cofig.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
+@Setter
 @Table(name = "image")
 public class Image extends BaseTimeEntity {
 

@@ -4,6 +4,7 @@
       layout:decorator="~{layouts/layout}">
 
 <th:block layout:fragment="content">
+    <div class="container">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -13,7 +14,6 @@
             <th>종료날짜</th>
             <th>가격</th>
             <th>목표가격</th>
-            <th>태그</th>
             <th>등록날짜</th>
         </tr>
         </thead>
@@ -25,14 +25,10 @@
             <td th:text="${project.periodEnd}"></td>
             <td th:text="${project.price}"></td>
             <td th:text="${project.purposePrice}"></td>
-            <td>
-                <th:block th:each="tag : ${project.tags}">
-                    <span th:text="${tag.name}"></span>
-                </th:block>
-            </td>
             <td th:text="${#temporals.format(project.createdDate, 'yyyy-MM-dd, HH:mm')}"></td>
 
         </tr>
         </tbody>
     </table>
+    </div>
 </th:block>

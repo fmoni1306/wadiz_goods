@@ -4,5 +4,23 @@
       layout:decorator="~{layouts/layout}">
 
 <th:block layout:fragment="content">
-<div th:text="${project.title}"></div>
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-md-8">
+                <h6 th:text="${project.title}"></h6>
+                <th:block th:each="tag : ${project.tags}">
+                    <a href="#" th:if="${project.tags.size() == tagStat.count}" th:text="'#' + ${tag.name}"></a>
+                    <a href="#" th:if="${project.tags.size() != tagStat.count}" th:text="'#' + ${tag.name} + ','"></a>
+                </th:block>
+                <h6 th:text="|목표가격 : ${project.purposePrice}|"></h6>
+                <h6 th:text="|현재가격 : ${project.price}|"></h6>
+                <h6 th:text="|시작날짜 : ${project.periodStart}|"></h6>
+                <h6 th:text="|종료날짜 : ${project.periodEnd}|"></h6>
+                <img th:each="image : ${project.images}">
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
 </th:block>
