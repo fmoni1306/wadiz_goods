@@ -31,7 +31,6 @@ public class MemberService implements UserDetailsService {
         Member member = new Member();
         member.setMemberName(form.getMemberName());
         member.setPassword(new BCryptPasswordEncoder().encode(form.getPassword()));
-        System.out.println(form.getPurpose()+"====================================");
         if (form.getPurpose()) {
             member.setIsProvider(true);
         } else {

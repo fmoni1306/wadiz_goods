@@ -13,7 +13,7 @@ import static javax.persistence.FetchType.LAZY;
 @Setter
 public class Keyword {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "keyword_id")
     private Long id;
 

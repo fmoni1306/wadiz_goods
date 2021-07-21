@@ -1,0 +1,51 @@
+package com.wadiz_goods.domain.project;
+
+import com.wadiz_goods.cofig.BaseTimeEntity;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+import static javax.persistence.FetchType.LAZY;
+
+@Entity
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Getter
+@Table(name = "image")
+public class Image extends BaseTimeEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "image_id")
+    private Long id;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    @Column(nullable = false)
+    private String origImageName;
+
+    @Column(nullable = false)
+    private String imagePath;
+
+    private Long imageSize;
+
+    @Builder
+    public Image(String origImageName, String imagePath, Long imageSize) {
+        this.origImageName = origImageName;
+        this.imagePath = imagePath;
+        this.imageSize = imageSize;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+
+        if (!project.getImages().contains(this)) {
+            project.getImages().add(this);
+        }
+
+    }
+}

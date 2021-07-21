@@ -31,4 +31,8 @@ public class ProjectRepository {
 
         return query.getResultList();
     }
+
+    public Project findOne(Long id) {
+        return em.find(Project.class, id);
+    }
 }

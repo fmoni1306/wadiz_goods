@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -31,12 +32,15 @@ public class ProjectController {
     }
 
     @PostMapping("project/create")
-    public String create(@RequestParam(value = "tagsList", required = true) String[] tags, @Valid ProjectForm form, Authentication authentication) {
-
-
+    public String create(
+            @RequestParam(value = "tagsList", required = false) String[] tags,
+            @RequestParam(value = "image", required = false) List<MultipartFile> Images,
+            @Valid ProjectForm form,
+            Authentication authentication
+    ) throws Exception {
         User user = (User) authentication.getPrincipal();
-
-        projectService.create(form, user, tags);
+        System.out.println(Images.get(0));
+        projectService.create(form, user, tags, Images);
 
         return "redirect:/";
     }
@@ -47,5 +51,13 @@ public class ProjectController {
 
         model.addAttribute("projects", projects);
         return "project/projectList";
+    }
+
+    @GetMapping("project/detail")
+    public String projectDetail(Model model, @RequestParam(value = "id") Long id) {
+        Project project = projectService.findProject(id);
+
+        model.addAttribute("project", project);
+        return "project/projectDetail";
     }
 }

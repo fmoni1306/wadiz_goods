@@ -16,7 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @Setter
 public class Demander {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "demander_id")
     private Long id;
 
@@ -25,6 +25,6 @@ public class Demander {
     private Member member;
 
     @OneToMany(mappedBy = "demander")
-    private List<Keyword> keywords = new ArrayList<Keyword>();
+    private List<Keyword> keywords = new ArrayList<>();
 
 }

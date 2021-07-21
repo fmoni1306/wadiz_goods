@@ -4,7 +4,7 @@
       layout:decorator="~{layouts/layout}">
 
 <th:block layout:fragment="content">
-    <form method="post" th:action="@{/project/create}" th:object="${form}">
+    <form method="post" th:action="@{/project/create}" th:object="${form}" enctype="multipart/form-data">
         <div class="container">
             <div class="form-group">
                 <label th:for="title">Title</label>
@@ -35,6 +35,12 @@
                 <input type="text" name="tag" id="tag">
                 <button type="button" class="btn btn-primary" id="add_tag">추가</button>
                 <div th:id="tag_list" th:name="tag_list"></div>
+            </div>
+            <div class="form-group">
+                <input type="file" name="image"></input>
+                <input type="file" name="image"></input>
+                <input type="file" name="image"></input>
+
             </div>
 
             <button type="submit">제출</button>

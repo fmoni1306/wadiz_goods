@@ -14,12 +14,13 @@
             <th>가격</th>
             <th>목표가격</th>
             <th>태그</th>
+            <th>등록날짜</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="project : ${projects}">
-            <td th:text="${project.id}"></td>
-            <td th:text="${project.title}"></td>
+            <td th:text="${projectStat.count}"></td>
+            <td><a th:href="@{/project/detail(id=${project.id})}" th:text="${project.title}"></a></td>
             <td th:text="${project.periodStart}"></td>
             <td th:text="${project.periodEnd}"></td>
             <td th:text="${project.price}"></td>
@@ -29,6 +30,7 @@
                     <span th:text="${tag.name}"></span>
                 </th:block>
             </td>
+            <td th:text="${#temporals.format(project.createdDate, 'yyyy-MM-dd, HH:mm')}"></td>
 
         </tr>
         </tbody>

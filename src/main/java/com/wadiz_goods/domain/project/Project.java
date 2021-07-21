@@ -1,6 +1,7 @@
 package com.wadiz_goods.domain.project;
 
 import com.mysql.cj.log.Log;
+import com.wadiz_goods.cofig.BaseTimeEntity;
 import com.wadiz_goods.domain.member.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +18,9 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name = "project")
 @Getter
 @Setter
-public class Project {
+public class Project extends BaseTimeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_id")
     private Long id;
 
@@ -35,8 +36,6 @@ public class Project {
 
     private Long purposePrice;
 
-    private LocalDateTime createdDate;
-
     private LocalDate periodStart;
 
     private LocalDate periodEnd;
@@ -44,16 +43,22 @@ public class Project {
     // should add tag (1 : M ), add image ( 1: M)
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
-    // private List<Image> image
+
+    // https://dev-elop.tistory.com/entry/JPA-orphanRemoval-%EC%9A%A9%EB%8F%84 = orphan 용도
+   @OneToMany(mappedBy = "project", cascade = CascadeType.ALL,  orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
 
     public void setProvider(Member member) {
         this.provider = member;
         member.getProjects().add(this);
     }
 
-    public void addTag(Tag tag) {
-        tags.add(tag);
-        tag.setProject(this);
+    public void addImages(Image image) {
+        this.images.add(image);
+
+        if (image.getProject() != this) {
+            image.setProject(this);
+        }
     }
 
     // 생성 메서드
@@ -64,10 +69,8 @@ public class Project {
         project.setContent(content);
         project.setPrice(price);
         project.setPurposePrice(purposePrice);
-        project.setCreatedDate(LocalDateTime.now());
         project.setPeriodStart(periodStart);
         project.setPeriodEnd(periodEnd);
-
 
 
         return project;

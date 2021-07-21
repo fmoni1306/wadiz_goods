@@ -11,6 +11,10 @@ spring:
       database: mysql
     generate-ddl: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace

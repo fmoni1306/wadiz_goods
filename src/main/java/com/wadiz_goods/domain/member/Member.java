@@ -1,5 +1,6 @@
 package com.wadiz_goods.domain.member;
 
+import com.wadiz_goods.cofig.BaseTimeEntity;
 import com.wadiz_goods.domain.project.Project;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +14,10 @@ import java.util.List;
 @Table(name = "member")
 @Getter
 @Setter
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
@@ -39,5 +40,5 @@ public class Member {
     private Provider provider;
 
     @OneToMany(mappedBy = "provider")
-    private List<Project> projects = new ArrayList<Project>();
+    private List<Project> projects = new ArrayList<>();
 }
