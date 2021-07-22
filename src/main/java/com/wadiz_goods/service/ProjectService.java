@@ -85,7 +85,7 @@ public class ProjectService {
             String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
 
             // 파일을 저장할 세부 경로 지정
-            String path = "images" + File.separator + current_date;
+            String path = "src\\main\\resources\\static\\images" + File.separator + current_date;
             File file = new File(path);
 
             // 디렉터리가 존재하지 않을 경우
@@ -121,13 +121,13 @@ public class ProjectService {
 
                 // 파일 DTO 생성
                 Image imageDto = Image.builder()
-                        .origImageName(multipartFile.getOriginalFilename())
-                        .imagePath(path + File.separator + newImageName)
+                        .originImageName(multipartFile.getOriginalFilename())
+                        .imagePath(current_date + File.separator + newImageName)
                         .imageSize(multipartFile.getSize())
                         .build();
 
                 Image image = new Image(
-                        imageDto.getOrigImageName(),
+                        imageDto.getOriginImageName(),
                         imageDto.getImagePath(),
                         imageDto.getImageSize()
                 );

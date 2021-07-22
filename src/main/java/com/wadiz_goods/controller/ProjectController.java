@@ -39,7 +39,6 @@ public class ProjectController {
             Authentication authentication
     ) throws Exception {
         User user = (User) authentication.getPrincipal();
-        System.out.println(Images.get(0));
         projectService.create(form, user, tags, Images);
 
         return "redirect:/";

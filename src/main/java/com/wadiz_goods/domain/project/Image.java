@@ -24,7 +24,7 @@ public class Image extends BaseTimeEntity {
     private Project project;
 
     @Column(nullable = false)
-    private String origImageName;
+    private String originImageName;
 
     @Column(nullable = false)
     private String imagePath;
@@ -32,8 +32,8 @@ public class Image extends BaseTimeEntity {
     private Long imageSize;
 
     @Builder
-    public Image(String origImageName, String imagePath, Long imageSize) {
-        this.origImageName = origImageName;
+    public Image(String originImageName, String imagePath, Long imageSize) {
+        this.originImageName = originImageName;
         this.imagePath = imagePath;
         this.imageSize = imageSize;
     }
