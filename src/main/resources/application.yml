@@ -11,6 +11,9 @@ spring:
       database: mysql
     generate-ddl: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        format_sql: true
   servlet:
     multipart:
       max-file-size: 10MB

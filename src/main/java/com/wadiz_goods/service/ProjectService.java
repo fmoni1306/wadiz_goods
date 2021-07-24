@@ -9,6 +9,9 @@ import com.wadiz_goods.repository.ImageRepository;
 import com.wadiz_goods.repository.MemberRepository;
 import com.wadiz_goods.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +20,12 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +35,8 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final ImageRepository imageRepository;
     private final MemberRepository memberRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ProjectService.class);
+
 
     @Transactional
     public Long create(ProjectForm form, User user, String[] tags, List<MultipartFile> images) throws Exception {
@@ -85,7 +93,7 @@ public class ProjectService {
             String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
 
             // 파일을 저장할 세부 경로 지정
-            String path = "src\\main\\resources\\static\\images" + File.separator + current_date;
+            String path = "images" + File.separator + current_date;
             File file = new File(path);
 
             // 디렉터리가 존재하지 않을 경우
@@ -156,5 +164,29 @@ public class ProjectService {
 
     public Project findProject(Long id) {
         return projectRepository.findOne(id);
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
+    public void testScheduler() {
+        LocalDate today = LocalDate.now();
+
+        List<Project> projectList = projectRepository.findAll();
+
+        for (Project project: projectList) {
+            if (!project.getIsStart()) {
+                if (project.getPeriodStart().isEqual(today)) {
+                    projectRepository.startUpdate(project);
+                }
+            }else {
+                if (project.getPeriodEnd().isEqual(today)) {
+                    projectRepository.endUpdate(project);
+                }
+            }
+        }
+
+
+        logger.info("=====" + today + "스케줄러 실행 " + "=====");
+
     }
 }

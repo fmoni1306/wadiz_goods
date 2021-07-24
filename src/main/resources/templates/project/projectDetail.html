@@ -16,7 +16,7 @@
                 <h6 th:text="|현재가격 : ${project.price}|"></h6>
                 <h6 th:text="|시작날짜 : ${project.periodStart}|"></h6>
                 <h6 th:text="|종료날짜 : ${project.periodEnd}|"></h6>
-                <img th:each="image : ${project.images}" th:src="@{/images/} + ${image.imagePath}">
+                <img th:each="image : ${project.images}" th:src="${image.imagePath}">
             </div>
             <div class="col-md-4">
 

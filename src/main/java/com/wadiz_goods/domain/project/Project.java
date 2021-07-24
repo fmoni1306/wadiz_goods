@@ -5,6 +5,8 @@ import com.wadiz_goods.cofig.BaseTimeEntity;
 import com.wadiz_goods.domain.member.Member;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -39,6 +41,10 @@ public class Project extends BaseTimeEntity {
     private LocalDate periodStart;
 
     private LocalDate periodEnd;
+
+    @Column(columnDefinition = "boolean default false")
+    @Nullable
+    private Boolean isStart;
 
     // should add tag (1 : M ), add image ( 1: M)
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
@@ -76,4 +82,5 @@ public class Project extends BaseTimeEntity {
         return project;
 
     }
+
 }

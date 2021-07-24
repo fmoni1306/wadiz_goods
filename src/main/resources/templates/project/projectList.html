@@ -15,6 +15,7 @@
             <th>가격</th>
             <th>목표가격</th>
             <th>등록날짜</th>
+            <th>시작여부</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,9 @@
             <td th:text="${project.price}"></td>
             <td th:text="${project.purposePrice}"></td>
             <td th:text="${#temporals.format(project.createdDate, 'yyyy-MM-dd, HH:mm')}"></td>
+            <td th:if="${project.getIsStart() == true}">시작함 구매가능</td>
+            <td th:if="${project.getIsStart() == false}">시작전 구매불가</td>
+            <td th:if="${project.getIsStart() == null}">종료</td>
 
         </tr>
         </tbody>
