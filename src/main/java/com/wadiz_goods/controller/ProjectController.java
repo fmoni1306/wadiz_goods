@@ -13,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,5 +60,20 @@ public class ProjectController {
 
         model.addAttribute("project", project);
         return "project/projectDetail";
+    }
+
+    @PostMapping("project/buy")
+    @ResponseBody
+    public String projectBuy(@RequestParam(value = "id") Long id, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        Long buyId = projectService.buy(user, id);
+
+        if (buyId >= 1L) {
+            return "success";
+        } else if (buyId == 0L){
+            return "duplicate";
+        } else {
+            return "fail";
+        }
     }
 }

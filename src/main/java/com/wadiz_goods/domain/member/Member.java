@@ -1,6 +1,7 @@
 package com.wadiz_goods.domain.member;
 
 import com.wadiz_goods.cofig.BaseTimeEntity;
+import com.wadiz_goods.domain.project.Buy;
 import com.wadiz_goods.domain.project.Project;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "member")
@@ -38,6 +41,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "member")
     private Provider provider;
+
+    @OneToOne(mappedBy = "member")
+    private Buy buy;
 
     @OneToMany(mappedBy = "provider")
     private List<Project> projects = new ArrayList<>();

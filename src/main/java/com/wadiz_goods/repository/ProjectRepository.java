@@ -1,5 +1,7 @@
 package com.wadiz_goods.repository;
 
+import com.wadiz_goods.domain.member.Member;
+import com.wadiz_goods.domain.project.Buy;
 import com.wadiz_goods.domain.project.Project;
 import com.wadiz_goods.domain.project.Tag;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,10 @@ public class ProjectRepository {
 
     public void save(Tag tag) {
         em.persist(tag);
+    }
+
+    public void save(Buy buy) {
+        em.persist(buy);
     }
 
     // 오늘 날짜를 받아서 한번에 변경시키기
@@ -48,5 +54,14 @@ public class ProjectRepository {
 
     public Project findOne(Long id) {
         return em.find(Project.class, id);
+    }
+
+    public List<Buy> findOneBuy(Project project, Member member) {
+        String jpql = "select b.id From Buy b where b.project=:project and b.member=:member";
+        return em.createQuery(jpql)
+                .setParameter("project", project)
+                .setParameter("member", member)
+                .getResultList();
+
     }
 }

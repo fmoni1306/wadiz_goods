@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
 
 <th:block layout:fragment="content">
     <div class="container">
@@ -9,8 +13,8 @@
             <div class="col-md-8">
                 <h6 th:text="${project.title}"></h6>
                 <th:block th:each="tag : ${project.tags}">
-                    <a href="#" th:if="${project.tags.size() == tagStat.count}" th:text="'#' + ${tag.name}"></a>
-                    <a href="#" th:if="${project.tags.size() != tagStat.count}" th:text="'#' + ${tag.name} + ','"></a>
+                    <span th:if="${project.tags.size() == tagStat.count}" th:text="'#' + ${tag.name}"></span>
+                    <span th:if="${project.tags.size() != tagStat.count}" th:text="'#' + ${tag.name} + ' '"></span>
                 </th:block>
                 <h6 th:text="|목표가격 : ${project.purposePrice}|"></h6>
                 <h6 th:text="|현재가격 : ${project.price}|"></h6>
@@ -19,8 +23,38 @@
                 <img th:each="image : ${project.images}" th:src="${image.imagePath}">
             </div>
             <div class="col-md-4">
-
+                <th:block th:if="${project.isStart} == True">
+                    <button class="btn btn-primary float-end" id="buy_btn">구매신청</button>
+                </th:block>
             </div>
+            <input type="hidden" th:value="${project.id}" id="project_id">
         </div>
     </div>
+</th:block>
+<th:block layout:fragment="script">
+    <script type="text/javascript">
+        let token = $("meta[name='_csrf']").attr("content");
+        let header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+        $('#buy_btn').on('click', function () {
+            if (confirm('구매 신청 하시겠습니까?')) {
+                $.ajax({
+                    url: '/project/buy',
+                    type: 'POST',
+                    data: {
+                        id: $('#project_id').val()
+                    }, success: function (data) {
+                        if (data == "success") {
+                            alert("구매신청성공");
+                        } else if (data == "duplicate") {
+                            alert("중복구매신청불가");
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
 </th:block>

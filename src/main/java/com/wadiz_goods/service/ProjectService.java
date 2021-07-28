@@ -2,6 +2,7 @@ package com.wadiz_goods.service;
 
 import com.wadiz_goods.controller.form.ProjectForm;
 import com.wadiz_goods.domain.member.Member;
+import com.wadiz_goods.domain.project.Buy;
 import com.wadiz_goods.domain.project.Image;
 import com.wadiz_goods.domain.project.Project;
 import com.wadiz_goods.domain.project.Tag;
@@ -73,6 +74,35 @@ public class ProjectService {
 
         return project.getId();
 
+    }
+
+    @Transactional
+    public Long buy(User user, Long id) {
+        Member member = memberRepository.findByMemberName(user.getUsername());
+        Project project = projectRepository.findOne(id);
+        if (duplicateBuy(project, member)) {
+            Buy buy = Buy.createBuy(
+                    project, member
+            );
+
+            projectRepository.save(buy);
+
+            return project.getId();
+        }else{
+            return 0L;
+        }
+
+
+    }
+
+    private Boolean duplicateBuy(Project project, Member member) {
+        List<Buy> buyList = projectRepository.findOneBuy(project, member);
+
+        if (!buyList.isEmpty()){
+//            throw new IllegalStateException("이미 구매신청한 프로젝트입니다.");
+            return false;
+        }
+        return true;
     }
 
     // 이미지 저장
@@ -189,4 +219,6 @@ public class ProjectService {
         logger.info("=====" + today + "스케줄러 실행 " + "=====");
 
     }
+
+
 }

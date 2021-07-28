@@ -42,13 +42,14 @@ public class Project extends BaseTimeEntity {
 
     private LocalDate periodEnd;
 
-    @Column(columnDefinition = "boolean default false")
     @Nullable
     private Boolean isStart;
 
-    // should add tag (1 : M ), add image ( 1: M)
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Buy> buys = new ArrayList<>();
 
     // https://dev-elop.tistory.com/entry/JPA-orphanRemoval-%EC%9A%A9%EB%8F%84 = orphan 용도
    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL,  orphanRemoval = true)
@@ -77,6 +78,7 @@ public class Project extends BaseTimeEntity {
         project.setPurposePrice(purposePrice);
         project.setPeriodStart(periodStart);
         project.setPeriodEnd(periodEnd);
+        project.setIsStart(Boolean.FALSE);
 
 
         return project;

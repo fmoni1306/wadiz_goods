@@ -18,6 +18,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Authentication authentication) {
+        System.out.println("home");
         return "home";
     }
 }
